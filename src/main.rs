@@ -1,11 +1,13 @@
+use std::io;
+
+use human_panic::setup_panic;
+use ratatui::backend::CrosstermBackend;
+use ratatui::Terminal;
+
 use chat_llm::app::{App, AppResult};
 use chat_llm::event::{Event, EventHandler};
 use chat_llm::handler::handle_key_events;
 use chat_llm::tui::Tui;
-use std::io;
-use human_panic::setup_panic;
-use ratatui::backend::CrosstermBackend;
-use ratatui::Terminal;
 
 #[tokio::main]
 async fn main() -> AppResult<()> {

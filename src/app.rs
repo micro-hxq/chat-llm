@@ -1,5 +1,6 @@
 use std::error;
-use tui_textarea::TextArea;
+
+use tui_textarea::{CursorMove, TextArea};
 
 use crate::config::AppConfig;
 use crate::util::{Conversation, History, LlmStatus, Mode};
@@ -54,7 +55,40 @@ impl<'a> App<'a> {
         self.running = false;
     }
 
-    pub fn increment_counter(&mut self) {}
+    pub fn set_normal_mode(&mut self) {
+        self.mode = Mode::Normal;
+    }
 
-    pub fn decrement_counter(&mut self) {}
+    pub fn set_input_mode(&mut self) {
+        self.mode = Mode::Input;
+    }
+
+    pub fn is_normal_mode(&self) -> bool {
+        self.mode == Mode::Normal
+    }
+
+    pub fn is_input_mode(&self) -> bool {
+        self.mode == Mode::Input
+    }
+
+    pub fn send_message(&mut self) {
+        let text = self.textarea.lines().iter()
+            .filter(|line| !line.is_empty())
+            .map(|line| line.to_string())
+            .next();
+        match text {
+            Some(text) => {
+                // send message to llm
+                todo!()
+            }
+            None => {}
+        }
+        self.clear_input();
+        self.status = LlmStatus::Busy;
+    }
+
+    fn clear_input(&mut self) {
+        self.textarea.move_cursor(CursorMove::Head);
+        self.textarea.delete_line_by_end();
+    }
 }

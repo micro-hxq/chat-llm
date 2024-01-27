@@ -1,19 +1,19 @@
 use std::time::Instant;
 
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq)]
 pub enum Mode {
     Normal,
     Input,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq)]
 pub enum LlmStatus {
     Idle,
     Busy,
 }
 
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum Role {
     System,
     User,

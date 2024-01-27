@@ -1,12 +1,13 @@
 use ratatui::{
+    Frame,
     layout::Alignment,
     style::{Color, Style},
-    widgets::{Block, BorderType, Borders, Paragraph},
-    Frame,
+    widgets::{Block, Borders, BorderType, Paragraph},
 };
 use ratatui::prelude::*;
 
 use crate::app::App;
+use crate::util::Mode;
 
 /// Renders the user interface widgets.
 pub fn render(app: &mut App, frame: &mut Frame) {
@@ -46,10 +47,28 @@ pub fn render(app: &mut App, frame: &mut Frame) {
             .title_alignment(Alignment::Left)
             .borders(Borders::ALL)
             .border_type(BorderType::Rounded)
-            .fg(Color::Cyan)
+            .fg(if app.mode == Mode::Normal { Color::Cyan } else { Color::Yellow })
             .bg(Color::Black),
     );
+    set_mode(app);
 
     let widget = app.textarea.widget();
     frame.render_widget(widget, chunks[1]);
+}
+
+fn set_mode(app: &mut App) {
+    match app.mode {
+        Mode::Normal => set_normal_mode(app),
+        Mode::Input => set_input_mode(app),
+    }
+}
+
+fn set_normal_mode(app: &mut App) {
+    app.mode = Mode::Normal;
+    app.textarea.set_cursor_style(Style::default().fg(Color::Black));
+}
+
+fn set_input_mode(app: &mut App) {
+    app.mode = Mode::Input;
+    app.textarea.set_cursor_style(Style::default().bg(Color::Yellow));
 }
