@@ -13,6 +13,20 @@ pub mod tui;
 /// Event handler.
 pub mod handler;
 
-pub mod util;
+mod util;
 
-pub mod config;
+mod config;
+
+mod component;
+mod data;
+
+
+pub use component::Bubble;
+pub use config::AppConfig;
+
+
+pub mod prelude {
+    pub use crate::AppConfig;
+    pub use crate::Bubble;
+    pub use crate::data::*;
+}

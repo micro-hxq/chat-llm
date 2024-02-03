@@ -2,6 +2,7 @@ use config::{Config, FileFormat};
 use once_cell::sync::Lazy;
 use serde::Deserialize;
 
+#[allow(dead_code)]
 pub static APP_CONFIG: Lazy<AppConfig> = Lazy::new(|| AppConfig::new());
 
 

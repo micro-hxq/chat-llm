@@ -3,7 +3,8 @@ use std::error;
 use tui_textarea::{CursorMove, TextArea};
 
 use crate::config::AppConfig;
-use crate::util::{Conversation, History, LlmStatus, Mode};
+use crate::data::{Conversation, History};
+use crate::util::{LlmStatus, Mode};
 
 /// Application result type.
 pub type AppResult<T> = std::result::Result<T, Box<dyn error::Error>>;
@@ -77,7 +78,7 @@ impl<'a> App<'a> {
             .map(|line| line.to_string())
             .next();
         match text {
-            Some(text) => {
+            Some(_text) => {
                 // send message to llm
                 todo!()
             }
