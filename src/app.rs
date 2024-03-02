@@ -4,6 +4,7 @@ use tui_textarea::{CursorMove, TextArea};
 
 use crate::config::AppConfig;
 use crate::data::{Conversation, History};
+use crate::DialogueState;
 use crate::util::{LlmStatus, Mode};
 
 /// Application result type.
@@ -24,6 +25,7 @@ pub struct App<'a> {
 
     pub textarea: TextArea<'a>,
 
+    pub dialog_state: DialogueState,
 }
 
 impl<'a> Default for App<'a> {
@@ -38,6 +40,7 @@ impl<'a> Default for App<'a> {
             history,
             conversation: Conversation::new(count as i64, "".to_string()),
             textarea: TextArea::default(),
+            dialog_state: DialogueState::new(),
         }
     }
 }

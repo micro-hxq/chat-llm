@@ -19,14 +19,19 @@ mod config;
 
 mod component;
 mod data;
+mod llm;
 
 
 pub use component::Bubble;
+pub use component::Dialogue;
+pub use component::DialogueState;
 pub use config::AppConfig;
 
 
 pub mod prelude {
     pub use crate::AppConfig;
     pub use crate::Bubble;
+    pub use crate::Dialogue;
+    pub use crate::DialogueState;
     pub use crate::data::*;
 }

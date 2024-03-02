@@ -17,7 +17,11 @@ serde = { version = "1.0.195", features = ["derive"] }
 once_cell = "1.19.0"
 tui-textarea = "0.4.0"
 color-eyre = "0.6.2"
+anyhow = "1.0.80"
 
 
 [[example]]
-name="bubble_demo"
+name = "bubble_demo"
+
+[[example]]
+name = "dialogue_demo"

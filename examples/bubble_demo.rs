@@ -27,12 +27,13 @@ impl App {
     }
 
     fn ui(&mut self, frame: &mut Frame) {
-        let message = ChatMessage::new(Role::User, r#"fn main() -> Result<()> {
+        let message = ChatMessage::new(Role::User, r#"
+fn main() -> Result<()> {
     let mut app = App { running: true };
     app.run()?;
     Ok(())
 }"#.to_string());
-        let bubble = Bubble::new(&message, frame.size().width as usize - 10);
+        let bubble = Bubble::new(&message).with_width(frame.size().width);
         frame.render_widget(bubble, frame.size());
     }
 
