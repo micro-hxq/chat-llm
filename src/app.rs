@@ -2,7 +2,6 @@ use std::error;
 
 use tui_textarea::{CursorMove, TextArea};
 
-use crate::config::AppConfig;
 use crate::data::{Conversation, History};
 use crate::DialogueState;
 use crate::util::{LlmStatus, Mode};
@@ -17,7 +16,7 @@ pub struct App<'a> {
     pub running: bool,
     /// counter
     // pub counter: u8,
-    pub config: AppConfig,
+    // pub config: AppConfig,
     pub mode: Mode,
     pub status: LlmStatus,
     pub history: History,
@@ -34,7 +33,7 @@ impl<'a> Default for App<'a> {
         let count = history.len();
         Self {
             running: true,
-            config: AppConfig::new(),
+            // config: AppConfig::new(),
             mode: Mode::Normal,
             status: LlmStatus::Idle,
             history,

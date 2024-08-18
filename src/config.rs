@@ -1,6 +1,7 @@
 use config::{Config, FileFormat};
 use once_cell::sync::Lazy;
 use serde::Deserialize;
+use crate::llm::ChatOpenAIConfig;
 
 #[allow(dead_code)]
 pub static APP_CONFIG: Lazy<AppConfig> = Lazy::new(|| AppConfig::new());
@@ -8,9 +9,7 @@ pub static APP_CONFIG: Lazy<AppConfig> = Lazy::new(|| AppConfig::new());
 
 #[derive(Debug, Deserialize)]
 pub struct AppConfig {
-    pub api_key: String,
-    pub url: String,
-    pub model: String,
+    pub openai: Option<ChatOpenAIConfig>,
 }
 
 impl AppConfig {

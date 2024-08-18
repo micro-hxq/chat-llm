@@ -7,32 +7,34 @@ pub struct MockLlm {}
 
 
 impl LlmGenerationConfig for MockLlm {
-    fn do_sample(&self) -> bool {
-        true
+    fn do_sample(&self) -> Option<bool> {
+        Some(true)
     }
 
-    fn temperature(&self) -> f32 {
-        0.98
+    fn temperature(&self) -> Option<f32> {
+        Some(0.98)
     }
 
-    fn max_tokens(&self) -> i32 {
-        1024
+    fn max_tokens(&self) -> Option<i32> {
+        Some(1024)
     }
 
-    fn top_p(&self) -> f32 {
-        0.95
+    fn top_p(&self) -> Option<f32> {
+        Some(0.95)
     }
 
-    fn frequency_penalty(&self) -> f32 {
-        1.0
+    fn frequency_penalty(&self) -> Option<f32> {
+        Some(1.0)
     }
 
-    fn presence_penalty(&self) -> f32 {
-        1.0
+    fn presence_penalty(&self) -> Option<f32> {
+        Some(1.0)
     }
 }
 
 impl LlmConfig for MockLlm {
+    type GenerationConfig = MockLlm;
+
     fn api_key(&self) -> &str {
         "mock"
     }
@@ -45,14 +47,14 @@ impl LlmConfig for MockLlm {
         "mock-model"
     }
 
-    fn generation_config(&self) -> &dyn LlmGenerationConfig {
+    fn generation_config(&self) -> &Self::GenerationConfig {
         self
     }
 }
 
 impl Llm for MockLlm {
-    fn generate(&self, _messages: &[&dyn LlmMessage]) -> String {
-        "This is a mock response".to_string()
+    fn generate(&self, _messages: &[&dyn LlmMessage]) -> anyhow::Result<String> {
+        Ok("This is a mock response".to_string())
     }
 
     fn stream_generate(&self, _messages: &[&dyn LlmMessage]) -> mpsc::Receiver<anyhow::Result<String>> {
@@ -82,7 +84,7 @@ mod tests {
     #[test]
     fn test_mock_llm_generate() {
         let llm = MockLlm::default();
-        assert_eq!(llm.generate(&vec![]), "This is a mock response");
+        assert_eq!(llm.generate(&vec![]).unwrap(), "This is a mock response");
     }
 
     #[tokio::test]
